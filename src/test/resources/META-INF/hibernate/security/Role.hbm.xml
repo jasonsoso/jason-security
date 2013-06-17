@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field">
+  <class name="com.jason.security.model.Role" table="security_role" lazy="true">
+	<cache usage="read-write" region="org.hibernate.cache.StandardQueryCache"/>
+    <id name="id" column="id">
+      <generator class="uuid"/>
+    </id>
+    
+    <property name="name" unique="true" not-null="true" type="java.lang.String"></property>
+    <property name="showName" not-null="true" type="java.lang.String"></property>
+    
+    <set name="users" table="security_user_role">
+    	<key column="role_id"></key>
+    	<many-to-many class="com.jason.security.model.UserInfo" column="user_id"></many-to-many>
+    </set>
+    <set name="authorities" table="security_role_authority" fetch="join">
+    	<key column="role_id"></key>
+    	<many-to-many class="com.jason.security.model.Authority" column="authority_id"></many-to-many>
+    </set>
+  </class>
+</hibernate-mapping>
