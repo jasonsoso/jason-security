@@ -1,5 +1,5 @@
 ## Introduction ##
-JasonSecurity is a Shiro and JasonFramewok based JavaEE application reference architecture.
+JasonSecurity is a Shiro and [JasonFramewok](https://github.com/jasonsoso/jason-framework "jason-framework") based JavaEE application reference architecture.
 
 
 ## Clone and install ##
@@ -25,3 +25,5 @@ JasonSecurity is a Shiro and JasonFramewok based JavaEE application reference ar
 - Add the hibernate mapping files (Authority.hbm.xml、Role.hbm.xml、User.hbm.xml)
 
 - Add application-shiro.xml
+
+- See the demo [JasonAdmin](https://github.com/jasonsoso/jason-admin "jason-admin")
