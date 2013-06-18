@@ -1,6 +1,7 @@
 package com.jason.security.model;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -36,15 +37,15 @@ public class UserInfo extends IdDomainObject{
 	private String email;
 	
 	private String photo;
-	
-	private boolean accountNonExpired = true;
-	
+
+	//帐户非锁定
 	private boolean accountNonLocked = true;
 	
-	private boolean credentialsNonExpired = true;
+	//注册时间
+	private Date createdAt;
 	
-	private boolean enabled = true;
-	
+	//最后修改时间
+	private Date updatedAt;
 
 	
 	private Set<Role> roles = new HashSet<Role>();
@@ -167,15 +168,6 @@ public class UserInfo extends IdDomainObject{
 		return this;
 	}
 
-	public boolean isAccountNonExpired() {
-		return accountNonExpired;
-	}
-
-	public UserInfo setAccountNonExpired(boolean accountNonExpired) {
-		this.accountNonExpired = accountNonExpired;
-		return this;
-	}
-
 	public boolean isAccountNonLocked() {
 		return accountNonLocked;
 	}
@@ -184,26 +176,27 @@ public class UserInfo extends IdDomainObject{
 		this.accountNonLocked = accountNonLocked;
 		return this;
 	}
-
-	public boolean isCredentialsNonExpired() {
-		return credentialsNonExpired;
+	public String getAccountNonLocked() {
+		return isAccountNonLocked()?"正常":"冻结";
 	}
 
-	public UserInfo setCredentialsNonExpired(boolean credentialsNonExpired) {
-		this.credentialsNonExpired = credentialsNonExpired;
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public UserInfo setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 		return this;
 	}
 
-	public boolean isEnabled() {
-		return enabled;
+	public Date getUpdatedAt() {
+		return updatedAt;
 	}
 
-	public UserInfo setEnabled(boolean enabled) {
-		this.enabled = enabled;
+	public UserInfo setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
 		return this;
 	}
-
-	public String getEnabledAsString() {
-		return isEnabled() ? "正常" : "停用";
-	}
+	
+	
 }

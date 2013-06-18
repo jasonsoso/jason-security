@@ -15,11 +15,11 @@ JasonSecurity is a Shiro and [JasonFramewok](https://github.com/jasonsoso/jason-
 - Add a dependency to pom.xml 
 
 `
-<dependency>   
-  <groupId>com.jason</groupId>   
-  <artifactId>securit</artifactId>   
-  <version>1.0.0</version>   
-</dependency>   
+<dependency>		
+  <groupId>com.jason</groupId>		
+  <artifactId>security</artifactId>		
+  <version>1.0.0</version> 		
+</dependency>	
 `
 
 - Add the hibernate mapping files (Authority.hbm.xml、Role.hbm.xml、User.hbm.xml)

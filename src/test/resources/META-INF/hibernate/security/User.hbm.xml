@@ -16,10 +16,11 @@
     <property name="password" not-null="true" type="java.lang.String"></property>
     <property name="email" unique="true" not-null="true" type="java.lang.String"></property>
     <property name="photo" not-null="false" type="java.lang.String"></property>
-    <property name="accountNonExpired" not-null="true" type="java.lang.Boolean"></property>
     <property name="accountNonLocked" not-null="true" type="java.lang.Boolean"></property>
-    <property name="credentialsNonExpired" not-null="true" type="java.lang.Boolean"></property>
-    <property name="enabled" not-null="true" type="java.lang.Boolean"></property>
+    
+    <property name="createdAt"  not-null="true" type="java.util.Date"></property>
+    <property name="updatedAt" not-null="true" type="java.util.Date"></property>
+    
     
     <set name="roles" lazy="false" table="security_user_role" fetch="join">
     	<key column="user_id"></key>
