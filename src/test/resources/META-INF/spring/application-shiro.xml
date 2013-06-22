@@ -62,6 +62,8 @@
         <property name="redirectUrl" value="${sso.loginurlpre}/logout?service=${sso.currurlpre}"/>  
     </bean>  
     
+    <bean id="queryRepository" class="com.jason.security.repository.impl.HibernateQueryRepository" />
+    
 	<bean id="realm" class="com.jason.security.realm.MyCasRealm" >
 	   <property name="cacheManager" ref="shiroCacheManager"/> 
 	   <property name="casServerUrlPrefix" value="${sso.loginurlpre}"/>  

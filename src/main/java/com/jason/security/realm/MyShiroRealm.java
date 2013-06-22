@@ -16,7 +16,6 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.jason.security.model.UserInfo;
 import com.jason.security.repository.QueryRepository;
@@ -28,7 +27,6 @@ import com.jason.security.repository.QueryRepository;
  */
 public class MyShiroRealm extends AuthorizingRealm {
 
-	@Autowired
 	private QueryRepository queryRepository;
 
 	/**
@@ -110,4 +108,14 @@ public class MyShiroRealm extends AuthorizingRealm {
 	protected AuthenticationInfo buildAuthenticationInfo(String username, char[] password) {
 		return new SimpleAuthenticationInfo(username, password, getName());
 	}
+
+	public QueryRepository getQueryRepository() {
+		return queryRepository;
+	}
+
+	public void setQueryRepository(QueryRepository queryRepository) {
+		this.queryRepository = queryRepository;
+	}
+	
+	
 }

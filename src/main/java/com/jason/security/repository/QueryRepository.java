@@ -4,7 +4,7 @@ import com.jason.security.model.UserInfo;
 
 
 /**
- * 
+ * 用戶查詢
  * @author Jason
  * @data 2013-6-17 下午10:16:42
  */

@@ -21,7 +21,6 @@ import org.jasig.cas.client.authentication.AttributePrincipal;
 import org.jasig.cas.client.validation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.jason.security.model.UserInfo;
 import com.jason.security.repository.QueryRepository;
@@ -44,7 +43,6 @@ public class MyCasRealm extends AuthorizingRealm {
     
     private static Logger log = LoggerFactory.getLogger(MyCasRealm.class);
 
-    @Autowired
     private QueryRepository queryRepository;
     
     
@@ -185,6 +183,8 @@ public class MyCasRealm extends AuthorizingRealm {
 		return new AuthorizationException(e);
 	}
 
+	
+	
     public String getCasServerUrlPrefix() {
         return casServerUrlPrefix;
     }
@@ -216,4 +216,13 @@ public class MyCasRealm extends AuthorizingRealm {
     public void setRememberMeAttributeName(String rememberMeAttributeName) {
         this.rememberMeAttributeName = rememberMeAttributeName;
     }
+
+	public QueryRepository getQueryRepository() {
+		return queryRepository;
+	}
+
+	public void setQueryRepository(QueryRepository queryRepository) {
+		this.queryRepository = queryRepository;
+	}
+    
 }
