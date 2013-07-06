@@ -43,7 +43,7 @@ public final class ShiroUserUtils {
 	 * 查询当前登陆者 用户Id
 	 * @return
 	 */
-	public static int getCurrentUserId() {
+	public static long getCurrentUserId() {
 		return getCurrentUser().getId();
 	}
 	

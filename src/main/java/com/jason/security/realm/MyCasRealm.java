@@ -138,7 +138,7 @@ public class MyCasRealm extends AuthorizingRealm {
             PrincipalCollection principalCollection = new SimplePrincipalCollection(principals, getName());
             return new SimpleAuthenticationInfo(principalCollection, ticket);*/
             
-            int id = Integer.parseInt((String)attributes.get("id"));
+            long id = Long.parseLong((String)attributes.get("id"));
             String email = (String)attributes.get("email");
             String photo = (String)attributes.get("photo");
             return new SimpleAuthenticationInfo(new ShiroUser(id, userId, email,photo), ticket, userId);
@@ -188,19 +188,19 @@ public class MyCasRealm extends AuthorizingRealm {
 	public static class ShiroUser implements Serializable {
 		private static final long serialVersionUID = -1373760761780840081L;
 		
-		public int id;
+		public long id;
 		public String username;
 		public String email;
 		public String photo;
 
-		public ShiroUser(int id,String username,String email,String photo) {
+		public ShiroUser(long id,String username,String email,String photo) {
 			this.id = id;
 			this.username = username;
 			this.email = email;
 			this.photo = photo;
 		}
 		
-		public int getId() {
+		public long getId() {
 			return id;
 		}
 

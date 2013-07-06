@@ -53,6 +53,14 @@ public class UserInfo extends IdDomainObject{
 	private Map<String, String> roleMap = new HashMap<String, String>();
 	
 	
+	public UserInfo(){
+	}
+	public UserInfo(long id){
+		this.id = id;
+	}
+	public UserInfo(String username){
+		this.username = username;
+	}
 
 	@JsonIgnore
 	public Set<Role> getRoles() {
