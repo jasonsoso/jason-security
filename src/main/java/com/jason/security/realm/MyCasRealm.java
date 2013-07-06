@@ -1,6 +1,11 @@
 
 package com.jason.security.realm;
 
+import java.io.Serializable;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -8,26 +13,22 @@ import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.cas.CasAuthenticationException;
+import org.apache.shiro.cas.CasToken;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.subject.SimplePrincipalCollection;
-import org.apache.shiro.util.CollectionUtils;
 import org.apache.shiro.util.StringUtils;
-
-import org.apache.shiro.cas.CasToken;
-import org.apache.shiro.cas.CasAuthenticationException;
-
 import org.jasig.cas.client.authentication.AttributePrincipal;
-import org.jasig.cas.client.validation.*;
+import org.jasig.cas.client.validation.Assertion;
+import org.jasig.cas.client.validation.Cas20ServiceTicketValidator;
+import org.jasig.cas.client.validation.Saml11TicketValidator;
+import org.jasig.cas.client.validation.TicketValidationException;
+import org.jasig.cas.client.validation.TicketValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.jason.security.model.UserInfo;
 import com.jason.security.repository.QueryRepository;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 
 /**
@@ -133,9 +134,15 @@ public class MyCasRealm extends AuthorizingRealm {
                 casToken.setRememberMe(true);
             }
             // create simple authentication info
-            List<Object> principals = CollectionUtils.asList(userId, attributes);
+            /*List<Object> principals = CollectionUtils.asList(userId, attributes);
             PrincipalCollection principalCollection = new SimplePrincipalCollection(principals, getName());
-            return new SimpleAuthenticationInfo(principalCollection, ticket);
+            return new SimpleAuthenticationInfo(principalCollection, ticket);*/
+            
+            int id = Integer.parseInt((String)attributes.get("id"));
+            String email = (String)attributes.get("email");
+            String photo = (String)attributes.get("photo");
+            return new SimpleAuthenticationInfo(new ShiroUser(id, userId, email,photo), ticket, userId);
+            
         } catch (TicketValidationException e) { 
             throw new CasAuthenticationException("Unable to validate ticket [" + ticket + "]", e);
         }
@@ -154,13 +161,10 @@ public class MyCasRealm extends AuthorizingRealm {
 		if (principals == null) {
 			throw new AuthorizationException("PrincipalCollection method argument cannot be null.");
 		}
-		
-        // retrieve user information
-        SimplePrincipalCollection principalCollection = (SimplePrincipalCollection) principals;
-        String username = (String)principalCollection.getPrimaryPrincipal();
+		ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
         try {
 
-            UserInfo user = queryRepository.queryByName(username);
+            UserInfo user = queryRepository.queryByName(shiroUser.getUsername());
 
             Set<String> roleNames = user.getRoleNames();
     		Set<String> permissions = user.getPermissions();
@@ -175,6 +179,80 @@ public class MyCasRealm extends AuthorizingRealm {
 		}
         
     }
+    
+	/**
+	 * 自定义Authentication对象，使得Subject除了携带用户的登录名外还可以携带更多信息.
+	 * @author Jason
+	 * @date 2013-7-6 下午09:53:03
+	 */
+	public static class ShiroUser implements Serializable {
+		private static final long serialVersionUID = -1373760761780840081L;
+		
+		public int id;
+		public String username;
+		public String email;
+		public String photo;
+
+		public ShiroUser(int id,String username,String email,String photo) {
+			this.id = id;
+			this.username = username;
+			this.email = email;
+			this.photo = photo;
+		}
+		
+		public int getId() {
+			return id;
+		}
+
+		public String getUsername() {
+			return username;
+		}
+
+		public String getEmail() {
+			return email;
+		}
+		
+		public String getPhoto() {
+			return photo;
+		}
+
+		/**
+		 * 本函数输出将作为默认的<shiro:principal/>输出.
+		 */
+		@Override
+		public String toString() {
+			return username;
+		}
+
+		/**
+		 * 重载hashCode,只计算username;
+		 */
+		@Override
+		public int hashCode() {
+			return Objects.hashCode(username);
+		}
+
+		/**
+		 * 重载equals,只计算username;
+		 */
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			ShiroUser other = (ShiroUser) obj;
+			if (username == null) {
+				if (other.username != null)
+					return false;
+			} else if (!username.equals(other.username))
+				return false;
+			return true;
+		}
+	}
+	
 	private AuthorizationException translateAuthorizationException(Exception e) {
 		if (e instanceof AuthorizationException) {
 			return (AuthorizationException) e;
