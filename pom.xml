@@ -55,7 +55,13 @@
 			<version>${org.apache.shiro-version}</version>
 		</dependency>
 		<!-- shiro dependency end -->
-
+    
+        <dependency>
+          <groupId>com.jagregory</groupId>
+          <artifactId>shiro-freemarker-tags</artifactId>
+          <version>0.1</version>
+        </dependency>
+        
 		<!-- Servlet jsp jstl start -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -98,6 +104,10 @@
 			<id>thirdparty</id>
 			<url>http://127.0.0.1:8081/nexus/content/repositories/thirdparty/</url>
 		</repository>
+		<repository>
+            <id>public</id>
+            <url>http://maven.scm-manager.org/nexus/content/groups/public/</url>
+        </repository>
 		<!-- For testing against latest Spring snapshots -->
 		<repository>
 			<id>org.springframework.maven.snapshot</id>
