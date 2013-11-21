@@ -37,6 +37,8 @@ public class UserInfo extends IdDomainObject{
 	private String email;
 	
 	private String photo;
+	
+	private Date birth;
 
 	//帐户非锁定
 	private boolean accountNonLocked = true;
@@ -176,6 +178,14 @@ public class UserInfo extends IdDomainObject{
 		return this;
 	}
 
+	public Date getBirth() {
+		return birth;
+	}
+	public UserInfo setBirth(Date birth) {
+		this.birth = birth;
+		return this;
+	}
+	
 	public boolean isAccountNonLocked() {
 		return accountNonLocked;
 	}
