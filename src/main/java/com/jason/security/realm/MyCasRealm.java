@@ -3,7 +3,7 @@ package com.jason.security.realm;
 
 import java.io.Serializable;
 import java.util.Map;
-import java.util.Objects;
+//import java.util.Objects;
 import java.util.Set;
 
 import org.apache.shiro.authc.AuthenticationException;
@@ -227,10 +227,10 @@ public class MyCasRealm extends AuthorizingRealm {
 		/**
 		 * 重载hashCode,只计算username;
 		 */
-		@Override
-		public int hashCode() {
-			return Objects.hashCode(username);
-		}
+		//@Override
+		//public int hashCode() {
+		//	return Objects.hashCode(username);
+		//}
 
 		/**
 		 * 重载equals,只计算username;
