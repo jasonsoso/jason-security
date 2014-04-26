@@ -1,5 +1,6 @@
 ## Introduction ##
-JasonSecurity is a Shiro and [JasonFramewok](https://github.com/jasonsoso/jason-framework "jason-framework") based JavaEE application reference architecture.
+JasonSecurity is a Shiro and [JasonFramewok](https://github.com/jasonsoso/jason-framework "jason-framework") based JavaEE application reference architecture.		
+JasonSecurity是一个基于Shiro和[JasonFramewok](https://github.com/jasonsoso/jason-framework "jason-framework")的JavaEE的应用框架。
 
 
 ## Clone and install ##
@@ -11,8 +12,9 @@ JasonSecurity is a Shiro and [JasonFramewok](https://github.com/jasonsoso/jason-
 
 ## Use  ##
 
+- The first step in executed first （[JasonFramewok](https://github.com/jasonsoso/jason-framework "jason-framework")）
 
-- Add a dependency to pom.xml 
+- Add a dependency to pom.xml
 
         <dependency>        
             <groupId>com.jason</groupId>        
